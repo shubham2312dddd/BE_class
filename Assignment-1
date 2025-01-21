@@ -1,0 +1,51 @@
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+const PORT = 3000;
+
+app.use((req, res, next) => {
+    const logDetails = {
+        timestamp: new Date().toISOString(),
+        ip: req.ip || req.connection.remoteAddress,
+        url: req.originalUrl,
+        method: req.method,
+        protocol: req.protocol,
+        hostname: req.hostname,
+        query: req.query,
+        headers: req.headers,
+        userAgent: req.get('User-Agent'),
+    };
+
+    const logEntry = JSON.stringify(logDetails) + '\n';
+    fs.appendFile(path.join(__dirname, 'requests.log'), logEntry, (err) => {
+        if (err) console.error('Error writing to log file:', err);
+    });
+
+    next();
+});
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the Express.js server!');
+});
+
+const rotateLogs = () => {
+    const logFilePath = path.join(__dirname, 'requests.log');
+    const maxLogSize = 1 * 1024 * 1024;
+
+    fs.stat(logFilePath, (err, stats) => {
+        if (!err && stats.size >= maxLogSize) {
+            const rotatedLogFilePath = path.join(__dirname, `requests-${Date.now()}.log`);
+            fs.rename(logFilePath, rotatedLogFilePath, (err) => {
+                if (err) console.error('Error rotating log file:', err);
+            });
+        }
+    });
+};
+
+setInterval(rotateLogs, 60 * 1000);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
