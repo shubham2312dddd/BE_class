@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= filename %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-zinc-900 text-white p-10">
+    <div class="file-content max-w-3xl mx-auto">
+      <h1 class="text-2xl font-bold mb-4">File: <%= filename %></h1>
+      <pre class="bg-zinc-800 p-4 rounded-md"><%= content %></pre>
+      <a
+        href="/"
+        class="block mt-6 text-blue-500 hover:underline"
+        >Go Back</a
+      >
+    </div>
+  </body>
+</html>
