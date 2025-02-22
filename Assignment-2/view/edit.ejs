@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit File</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-zinc-900 text-white p-10">
+    <div class="edit-content max-w-3xl mx-auto">
+      <h1 class="text-2xl font-bold mb-4">Edit File: <%= oldFilename %></h1>
+      <form action="/edit/<%= oldFilename %>" method="post">
+        <div class="mb-4">
+          <label class="block text-gray-400 mb-2">Previous Name:</label>
+          <input
+            type="text"
+            value="<%= oldFilename %>"
+            class="block w-full px-3 py-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none"
+            disabled
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-400 mb-2">New Name:</label>
+          <input
+            type="text"
+            name="newName"
+            placeholder="Enter new name"
+            class="block w-full px-3 py-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
+        <input
+          type="submit"
+          value="Change"
+          class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer"
+        />
+      </form>
+      <a
+        href="/"
+        class="block mt-6 text-blue-500 hover:underline"
+        >Go Back</a
+      >
+    </div>
+  </body>
+</html>
